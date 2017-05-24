@@ -1,4 +1,4 @@
-package lcc.lesquatrecoins;
+package lcc.logic;
 
 public class Card {
 

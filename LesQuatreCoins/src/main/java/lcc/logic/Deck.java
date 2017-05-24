@@ -1,13 +1,13 @@
-package lcc.lesquatrecoins;
+package lcc.logic;
 
 import java.util.LinkedList;
 
 abstract public class Deck {
-    protected int location;
+    protected int position;
     protected LinkedList<Card> deck;
 
     public Deck(int location) {
-        this.deck = new LinkedList<Card>();        
+        this.deck = new LinkedList<>();        
     }    
         
     abstract boolean allowedToAdd(Card card);
@@ -22,6 +22,10 @@ abstract public class Deck {
     
     public Card topCard() {
         return this.deck.peek();
+    }
+    
+    public int size() {
+        return this.deck.size();
     }
     
     

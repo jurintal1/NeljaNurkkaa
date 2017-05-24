@@ -1,5 +1,5 @@
 
-package lcc.lesquatrecoins;
+package lcc.logic;
 
 
 public class FoundationDeck extends Deck {
@@ -23,14 +23,11 @@ public class FoundationDeck extends Deck {
             return true;            
         }
         if (this.direction.equalsIgnoreCase("down")
-                && card.getValue() - 1 == this.topCard().getValue()
+                && card.getValue() + 1 == this.topCard().getValue()
                 && card.getSuit() == this.topCard().getSuit()) {
             return true;            
-        }   
-        if (card.getValue() + 1 == this.topCard().getValue() 
-                        || card.getValue() - 1 == this.topCard().getValue() ) {
-            return true;
-        }
+        } 
+        
         return false;
     }
     

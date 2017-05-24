@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package lcc.logic;
 
-import lcc.lesquatrecoins.Card;
+import lcc.logic.Card;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,10 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author o
- */
 public class CardTest {
 
     public CardTest() {
@@ -56,13 +48,10 @@ public class CardTest {
     public void CardIllegalValue() {
         Card c = new Card(14, Card.CLUBS);
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void CardIllegalSuit() {
         Card c = new Card(13, 5);
     }
-    
-    
+
 }
-
-
