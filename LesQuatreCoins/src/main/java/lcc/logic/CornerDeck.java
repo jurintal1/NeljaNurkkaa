@@ -5,31 +5,26 @@
  */
 package lcc.logic;
 
-/**
- *
- * @author o
- */
 public class CornerDeck extends Deck {
 
     public CornerDeck(int location) {
         super(location);
     }
-       
 
     @Override
     boolean allowedToAdd(Card card) {
-        if ((card.getValue() + 1) % 13 == this.topCard().getValue() 
-                        || (card.getValue() - 1) % 13 == this.topCard().getValue() ) {
+        if ((card.getValue() + 1) % 13 == this.topCard().getValue()
+                || (card.getValue() - 1) % 13 == this.topCard().getValue()) {
             return true;
         }
         return false;
     }
-    
+
     public Card takeCard() {
         if (!this.deck.isEmpty()) {
             return this.deck.pop();
         }
         return null;
     }
-    
+
 }

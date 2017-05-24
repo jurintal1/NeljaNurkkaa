@@ -35,7 +35,7 @@ public class Card {
         return value;
     }
 
-    public String SuitAsString() {
+    public String suitAsString() {
         switch (this.suit) {
             case 0:
                 return "CLUBS";
@@ -50,7 +50,7 @@ public class Card {
         }
     }
 
-    public String ValueAsString() {
+    public String valueAsString() {
         switch (this.value) {
             case 1:
                 return "ACE";
@@ -83,7 +83,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return ValueAsString() + " OF " + SuitAsString();
+        return valueAsString() + " OF " + suitAsString();
     }
 
 }
