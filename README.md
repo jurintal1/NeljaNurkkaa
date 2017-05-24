@@ -7,4 +7,4 @@ http://dogmelon.com.au/solhelp/Corner%20Stones.php. Huvin ja harjoituksen vuoksi
 
 #### Dokumentaatio
  * [Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
- * [Tuntikirjanpito] (dokumentaatio/tuntikirjanpito.md)
+ * [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
