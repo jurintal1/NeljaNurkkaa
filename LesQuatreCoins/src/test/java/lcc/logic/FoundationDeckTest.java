@@ -9,34 +9,29 @@ import static org.junit.Assert.*;
 
 public class FoundationDeckTest {
 
-    static FoundationDeck fdUp;
-    static FoundationDeck fdDown;
+    private FoundationDeck fdUp;
+    private FoundationDeck fdDown;
     static Card aceOfSpades;
     static Card twoOfSpades;
+    static Card threeOfSpades;
+    static Card twoOfHearts;
 
     public FoundationDeckTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
-        fdUp = new FoundationDeck(Suit.SPADES, Direction.UP);
-        fdDown = new FoundationDeck(Suit.SPADES, Direction.DOWN);
         aceOfSpades = new Card(Card.ACE, Suit.SPADES);
         twoOfSpades = new Card(2, Suit.SPADES);
+        threeOfSpades = new Card(3, Suit.SPADES);
+        twoOfHearts = new Card(2, Suit.HEARTS);
 
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
 
     @Before
     public void setUp() {
-
-    }
-
-    @After
-    public void tearDown() {
+        fdUp = new FoundationDeck(Suit.SPADES, Direction.UP);
+        fdDown = new FoundationDeck(Suit.SPADES, Direction.DOWN);
     }
 
     @Test
@@ -45,46 +40,82 @@ public class FoundationDeckTest {
     }
 
     @Test
-    public void addingToEmptyAllowed() {        
+    public void addingToEmptyAllowed() {
         assertEquals(true, fdUp.allowedToAdd(twoOfSpades));
     }
 
-    
     @Test
     public void addingBiggerToUp() {
         fdUp.addCard(aceOfSpades);
         assertEquals(true, fdUp.allowedToAdd(twoOfSpades));
     }
-    
+
     @Test
     public void addingSmallerToUp() {
-        fdDown.addCard(twoOfSpades);
+        fdUp.addCard(twoOfSpades);
         assertEquals(false, fdUp.allowedToAdd(aceOfSpades));
     }
-    
+
     @Test
     public void addingSmallerToDown() {
         fdDown.addCard(twoOfSpades);
         assertEquals(true, fdDown.allowedToAdd(aceOfSpades));
     }
-    
+
     @Test
     public void addingBiggerToDown() {
         fdDown.addCard(aceOfSpades);
         assertEquals(false, fdDown.allowedToAdd(twoOfSpades));
     }
-    
-    
-    
-    
-    
-    
 
     @Test
     public void addingOne() {
         fdUp.addCard(aceOfSpades);
         assertEquals(1, fdUp.size());
     }
-
     
+    @Test
+    public void addingTooBig() {
+        fdUp.addCard(aceOfSpades);
+        assertEquals(false,fdUp.allowedToAdd(threeOfSpades) );
+    }
+    
+    @Test
+    public void addingTooSmall() {
+        fdUp.addCard(threeOfSpades);
+        assertEquals(false,fdUp.allowedToAdd(aceOfSpades) );
+    }
+    
+    @Test
+    public void addingWrongSuit() {
+        fdUp.addCard(aceOfSpades);
+        assertEquals(false,fdUp.allowedToAdd(twoOfHearts) );
+    }
+    @Test
+    public void topCard() {
+        fdUp.addCard(aceOfSpades);
+        fdUp.addCard(twoOfSpades);        
+        assertEquals(twoOfSpades,fdUp.topCard());
+    }
+    
+    @Test
+    public void takeCard() {
+        fdUp.addCard(aceOfSpades);
+        fdUp.addCard(twoOfHearts);        
+        assertEquals(twoOfHearts,fdUp.takeCard());
+    }
+    
+    @Test
+    public void takeCardReducesSize() {
+        fdUp.addCard(aceOfSpades);
+        fdUp.addCard(twoOfHearts); 
+        fdUp.takeCard();
+        assertEquals(1,fdUp.size());
+    }
+    
+    
+    
+    
+    
+
 }

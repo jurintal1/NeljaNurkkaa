@@ -1,33 +1,31 @@
-
 package lcc.logic;
 
-
 public class FoundationDeck extends Deck {
+
     private Direction direction;
     private Suit suit;
 
     public FoundationDeck(Suit suit, Direction direction) {
-        super();        
+        super();
         this.direction = direction;
-        this.suit = suit;        
-    }   
-    
+        this.suit = suit;
+    }
 
     @Override
     boolean allowedToAdd(Card card) {
         if (this.deck.isEmpty()) {
             return true;
         }
-        if (this.direction==Direction.UP
+        if (this.direction == Direction.UP
                 && card.getValue() - 1 == this.topCard().getValue()
                 && card.getSuit() == this.topCard().getSuit()) {
-            return true;            
+            return true;
         }
-        if (this.direction==Direction.DOWN
+        if (this.direction == Direction.DOWN
                 && card.getValue() + 1 == this.topCard().getValue()
                 && card.getSuit() == this.topCard().getSuit()) {
-            return true;            
-        }         
+            return true;
+        }
         return false;
     }
 
@@ -38,7 +36,5 @@ public class FoundationDeck extends Deck {
     public Suit getSuit() {
         return suit;
     }
-    
-    
-    
+
 }

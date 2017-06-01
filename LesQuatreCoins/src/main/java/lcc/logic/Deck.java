@@ -10,15 +10,10 @@ abstract public class Deck {
         this.deck = new LinkedList<>();
     }
 
-    public void deal(Card card) {
-        this.deck.push(card);
-    }
-
     abstract boolean allowedToAdd(Card card);
 
     public void addCard(Card card) {
         this.deck.push(card);
-
     }
 
     public Card topCard() {
@@ -37,7 +32,5 @@ abstract public class Deck {
     public String toString() {
         return this.topCard().toString() + " - size " + this.size();
     }
-    
-    
 
 }

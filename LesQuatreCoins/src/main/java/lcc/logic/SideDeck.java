@@ -10,17 +10,21 @@ package lcc.logic;
  * @author o
  */
 public class SideDeck extends Deck {
+
     private Suit suit;
 
     public SideDeck(Suit suit) {
-        super();    
+        super();
         this.suit = suit;
     }
 
     @Override
     boolean allowedToAdd(Card card) {
-        if ((card.getValue() + 1) % 13 == this.topCard().getValue()
-                || (card.getValue() - 1) % 13 == this.topCard().getValue()) {
+        if (this.deck.isEmpty()) {
+            return false;
+        }
+        if ((card.getValue() + 1) % 13 == this.topCard().getValue() % 13
+                || (card.getValue() - 1) % 13 == this.topCard().getValue() % 13) {
             return true;
         }
         return false;
