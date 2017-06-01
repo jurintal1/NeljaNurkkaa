@@ -13,8 +13,11 @@ public class CornerDeck extends Deck {
 
     @Override
     boolean allowedToAdd(Card card) {
-        if ((card.getValue() + 1) % 13 == this.topCard().getValue()
-                || (card.getValue() - 1) % 13 == this.topCard().getValue()) {
+        if (this.deck.isEmpty()) {
+            return true;
+        }
+        if ((card.getValue() + 1) % 13 == this.topCard().getValue() % 13
+                || (card.getValue() - 1) % 13 == this.topCard().getValue() % 13) {
             return true;
         }
         return false;
