@@ -10,9 +10,11 @@ package lcc.logic;
  * @author o
  */
 public class SideDeck extends Deck {
+    private Suit suit;
 
-    public SideDeck(int location) {
-        super(location);
+    public SideDeck(Suit suit) {
+        super();    
+        this.suit = suit;
     }
 
     @Override
@@ -22,6 +24,10 @@ public class SideDeck extends Deck {
             return true;
         }
         return false;
+    }
+
+    public Suit getSuit() {
+        return suit;
     }
 
 }

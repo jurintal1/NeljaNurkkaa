@@ -19,10 +19,10 @@ public class FoundationDeckTest {
 
     @BeforeClass
     public static void setUpClass() {
-        fdUp = new FoundationDeck(0, "up");
-        fdDown = new FoundationDeck(0, "down");
-        aceOfSpades = new Card(Card.ACE, Card.SPADES);
-        twoOfSpades = new Card(2, Card.SPADES);
+        fdUp = new FoundationDeck(Suit.SPADES, Direction.UP);
+        fdDown = new FoundationDeck(Suit.SPADES, Direction.DOWN);
+        aceOfSpades = new Card(Card.ACE, Suit.SPADES);
+        twoOfSpades = new Card(2, Suit.SPADES);
 
     }
 

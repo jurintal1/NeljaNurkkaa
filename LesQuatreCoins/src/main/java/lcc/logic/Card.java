@@ -2,32 +2,24 @@ package lcc.logic;
 
 public class Card {
 
-    private int suit;
+    private Suit suit;
     private int value;
 
-    public final static int CLUBS = 0;
-    public final static int DIAMONDS = 1;
-    public final static int HEARTS = 2;
-    public final static int SPADES = 3;
 
     public final static int ACE = 1;
     public final static int JACK = 11;
     public final static int QUEEN = 12;
     public final static int KING = 13;
 
-    public Card(int value, int suit) {
-        if (suit < 0 || suit > 3 || value < 1 || value > 13) {
-            throw new IllegalArgumentException();
-        }        
+    public Card(int value, Suit suit) {
+        if (value < 1 || value > 13) {
+            throw new IllegalArgumentException("illegal card value");
+        }
         this.suit = suit;
         this.value = value;
-    }  
+    }
 
-    
-
-    
-
-    public int getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
@@ -35,20 +27,7 @@ public class Card {
         return value;
     }
 
-    public String suitAsString() {
-        switch (this.suit) {
-            case 0:
-                return "CLUBS";
-            case 1:
-                return "DIAMONDS";
-            case 2:
-                return "HEARTS";
-            case 3:
-                return "SPADES";
-            default:
-                return "SPADES";
-        }
-    }
+    
 
     public String valueAsString() {
         switch (this.value) {
@@ -83,7 +62,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return valueAsString() + " OF " + suitAsString();
+        return valueAsString() + " OF " + getSuit().name();
     }
 
 }

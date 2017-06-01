@@ -7,8 +7,8 @@ package lcc.logic;
 
 public class CornerDeck extends Deck {
 
-    public CornerDeck(int location) {
-        super(location);
+    public CornerDeck() {
+        super();
     }
 
     @Override

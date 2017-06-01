@@ -3,12 +3,13 @@ package lcc.logic;
 
 
 public class FoundationDeck extends Deck {
-    private String direction;
+    private Direction direction;
+    private Suit suit;
 
-    public FoundationDeck(int location, String direction) {
-        super(location);
+    public FoundationDeck(Suit suit, Direction direction) {
+        super();        
         this.direction = direction;
-        
+        this.suit = suit;        
     }   
     
 
@@ -17,18 +18,27 @@ public class FoundationDeck extends Deck {
         if (this.deck.isEmpty()) {
             return true;
         }
-        if (this.direction.equalsIgnoreCase("up")
+        if (this.direction==Direction.UP
                 && card.getValue() - 1 == this.topCard().getValue()
                 && card.getSuit() == this.topCard().getSuit()) {
             return true;            
         }
-        if (this.direction.equalsIgnoreCase("down")
+        if (this.direction==Direction.DOWN
                 && card.getValue() + 1 == this.topCard().getValue()
                 && card.getSuit() == this.topCard().getSuit()) {
             return true;            
-        } 
-        
+        }         
         return false;
     }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+    
+    
     
 }
