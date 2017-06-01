@@ -1,27 +1,32 @@
-
 package lcc.logic;
 
 import java.util.LinkedList;
-
 
 public class Dealer {
 
     public Dealer() {
     }
-    
-    public void deal(Deck[] decks) {
+
+    public LinkedList<Card> createLesQuatreCoinsCards() {
         // one set of aces and kings created in Game.createFoundationDecks()
         LinkedList<Card> cards = createCards(1, 13);
-        cards.addAll(createCards(2,12));
-        for (Deck deck : decks) {
-            if (cards.isEmpty()) {
-                break;
-            }
-            deck.addCard(cards.pop());
-        }      
-        
+        cards.addAll(createCards(2, 12));
+        return cards;
     }
-    
+
+    public void deal(Deck[] decks) {
+        LinkedList<Card> cards = createLesQuatreCoinsCards();
+        while (!cards.isEmpty()) {
+            for (Deck deck : decks) {
+                if (cards.isEmpty()) {
+                    break;
+                }
+                deck.addCard(cards.pop());
+            }
+        }
+
+    }
+
     public LinkedList createCards(int minValue, int maxValue) {
         LinkedList<Card> cards = new LinkedList();
         for (int i = minValue; i <= maxValue; i++) {
@@ -31,8 +36,5 @@ public class Dealer {
         }
         return cards;
     }
-    
-    
-    
-    
+
 }

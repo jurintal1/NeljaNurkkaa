@@ -7,31 +7,28 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
 public class SideDeckTest {
+
     private SideDeck sd;
     static Card aceOfClubs;
     static Card twoOfHearts;
     static Card kingOfSpades;
-    
-    
+
     public SideDeckTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
         aceOfClubs = new Card(1, Suit.CLUBS);
         twoOfHearts = new Card(2, Suit.HEARTS);
         kingOfSpades = new Card(13, Suit.SPADES);
     }
-    
 
-    
     @Before
     public void setUp() {
         this.sd = new SideDeck(Suit.CLUBS);
     }
-    
+
     public void startsEmpty() {
         assertEquals(0, sd.size());
     }
@@ -97,6 +94,6 @@ public class SideDeckTest {
         sd.addCard(kingOfSpades);
         sd.takeCard();
         assertEquals(1, sd.size());
-    } 
-    
+    }
+
 }

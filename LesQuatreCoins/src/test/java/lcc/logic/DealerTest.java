@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lcc.logic;
 
+import java.util.LinkedList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,11 +39,16 @@ public class DealerTest {
     }
 
     @Test
+    public void createLCCcards() {
+        LinkedList cards = dealer.createLesQuatreCoinsCards();
+        assertEquals(96, cards.size());
+    }
+
+    @Test
     public void dealToTwoDeck() {
-        dealer.deal(decks);
+        this.dealer.deal(decks);
         assertEquals(48, this.sd1.size());
         assertEquals(48, this.sd2.size());
     }
 
 }
-

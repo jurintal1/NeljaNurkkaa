@@ -15,7 +15,7 @@ public class Gameplay {
     
     public boolean move(SideDeck source, FoundationDeck destination) {
         if (source.getSuit()==destination.getSuit()
-                || destination.allowedToAdd(source.topCard())) {
+                && destination.allowedToAdd(source.topCard())) {
             destination.addCard(source.takeCard());
             return true;
         }        

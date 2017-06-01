@@ -24,6 +24,8 @@ public class Game {
     private FoundationDeck diamondsDown;
     private FoundationDeck heartsDown;
     private FoundationDeck spadesDown;
+    
+    private Deck[] manoeuvreDecks;
 
     public Game() {
         createFoundationDecks();
@@ -32,7 +34,7 @@ public class Game {
         dealToManoeuvreDecks();
     }
 
-    public void createManoeuvreDecks() {
+    public final void createManoeuvreDecks() {
         this.upLeftCorner = new CornerDeck();
         this.downLeftCorner = new CornerDeck();
         this.upRightCorner = new CornerDeck();
@@ -45,9 +47,17 @@ public class Game {
         this.right2 = new SideDeck(Suit.DIAMONDS);
         this.right3 = new SideDeck(Suit.HEARTS);
         this.right4 = new SideDeck(Suit.SPADES);
+        Deck[] decks = {upLeftCorner, downLeftCorner, upRightCorner,
+            downRightCorner, left1, left2, left3, left4, right1, right2, right3,
+            right4};
+        this.manoeuvreDecks = decks;
     }
 
-    public void createFoundationDecks() {
+    public Deck[] getManoeuvreDecks() {
+        return manoeuvreDecks;
+    }    
+
+    public final void createFoundationDecks() {
         this.clubsDown = new FoundationDeck(Suit.CLUBS, Direction.DOWN);
         this.clubsUp = new FoundationDeck(Suit.CLUBS, Direction.UP);
         this.diamondsDown = new FoundationDeck(Suit.DIAMONDS, Direction.DOWN);
@@ -59,7 +69,7 @@ public class Game {
 
     }
 
-    public void addAcesAndKingsToFoundationDecks() {
+    public final void addAcesAndKingsToFoundationDecks() {
         clubsDown.addCard(new Card(Card.KING, Suit.CLUBS));
         clubsUp.addCard(new Card(Card.ACE, Suit.CLUBS));
         diamondsDown.addCard(new Card(Card.KING, Suit.DIAMONDS));
@@ -70,12 +80,9 @@ public class Game {
         spadesUp.addCard(new Card(Card.ACE, Suit.SPADES));
     }
 
-    public void dealToManoeuvreDecks() {
-        Dealer dealer = new Dealer();
-        Deck[] manoeuvreDecks = {upLeftCorner, downLeftCorner, upRightCorner,
-            downRightCorner, left1, left2, left3, left4, right1, right2, right3,
-            right4};
-        dealer.deal(manoeuvreDecks);
+    public final void dealToManoeuvreDecks() {
+        Dealer dealer = new Dealer();        
+        dealer.deal(this.manoeuvreDecks);
 
     }
 
