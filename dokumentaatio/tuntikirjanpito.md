@@ -5,3 +5,5 @@ Päivä | Tunnit | Kuvaus
 22.5.2017 | 5h | Funtsailua, kortinpeluuta, luokkien hahmottelua
 23.5. | 3h | Card-luokan säätöä, ensimmäiset testit
 24.5. | 7 h | Testejä, luokkakaavio, Checkstyle
+31.5. | 4h | Game-luokka
+1.6. | 8h | Gamea, testejä, dokumentointia
