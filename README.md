@@ -9,4 +9,5 @@ http://dogmelon.com.au/solhelp/Corner%20Stones.php. Huvin ja harjoituksen vuoksi
  * [Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
  * [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
  * [pit-raportti](https://htmlpreview.github.io/?https://github.com/jurintal1/NeljaNurkkaa/blob/master/dokumentaatio/201706012251/index.html)
+ * [Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/jurintal1/NeljaNurkkaa/blob/master/dokumentaatio/checkstyle/checkstyle.html)
  
