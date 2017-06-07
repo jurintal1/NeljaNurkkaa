@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 
 public class GameTest {
-    private Game game;
+    private Table game;
     
     public GameTest() {
     }
@@ -20,7 +20,7 @@ public class GameTest {
     
     @Before
     public void setUp() {
-        this.game = new Game();
+        this.game = new Table();
     }
    
     @Test

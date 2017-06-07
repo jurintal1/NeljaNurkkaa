@@ -1,9 +1,12 @@
 package lcc.logic;
 
-public class Card {
+import javafx.scene.image.Image;
+
+public class Card  {
 
     private Suit suit;
     private int value;
+    private Image image;
 
 
     public final static int ACE = 1;
@@ -17,6 +20,11 @@ public class Card {
         }
         this.suit = suit;
         this.value = value;
+        this.image = new Image("src/main/resources/graphics" + this.toString() + ".png");
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public Suit getSuit() {
@@ -62,7 +70,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return valueAsString() + " OF " + getSuit().name();
+        return valueAsString() + getSuit().name();
     }
 
 }

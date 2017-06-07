@@ -14,13 +14,13 @@ public class CardTest {
     @Test
     public void cardConstructorIntegers() {
         Card c = new Card(1, Suit.SPADES);
-        assertEquals("ACE OF SPADES", c.toString());
+        assertEquals("ACESPADES", c.toString());
     }
 
     @Test
     public void cardConstructorConstants() {
         Card c = new Card(Card.JACK, Suit.HEARTS);
-        assertEquals("JACK OF HEARTS", c.toString());
+        assertEquals("JACKHEARTS", c.toString());
     }
 
     @Test(expected = IllegalArgumentException.class)
