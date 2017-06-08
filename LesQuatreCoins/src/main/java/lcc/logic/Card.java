@@ -1,13 +1,16 @@
 package lcc.logic;
 
-import javafx.scene.image.Image;
+/**
+ * Class represents a playing card.
+ */
+import java.net.URL;
+import javax.swing.ImageIcon;
 
-public class Card  {
+public class Card {
 
     private Suit suit;
     private int value;
-    private Image image;
-
+    private ImageIcon image;
 
     public final static int ACE = 1;
     public final static int JACK = 11;
@@ -20,10 +23,18 @@ public class Card  {
         }
         this.suit = suit;
         this.value = value;
-        this.image = new Image("src/main/resources/graphics" + this.toString() + ".png");
+
+        URL imgURL = getClass().getResource("/graphics/ACESPADES.png");
+        if (imgURL == null) {
+            this.image = new ImageIcon();
+            System.err.println("card image not found");
+        } else {
+            this.image = new ImageIcon((Card.class.getResource("/graphics/ACESPADES.png")));
+        }
+
     }
 
-    public Image getImage() {
+    public ImageIcon getImage() {
         return image;
     }
 
@@ -35,8 +46,12 @@ public class Card  {
         return value;
     }
 
-    
-
+    /**
+     * Represent the value of playing card as String.
+     * The visible representation changes for Aces, Kings, Queens, and Jacks.
+     *
+     * @return The card value as String.
+     */
     public String valueAsString() {
         switch (this.value) {
             case 1:
@@ -63,11 +78,17 @@ public class Card  {
                 return "JACK";
             case 12:
                 return "QUEEN";
+            case 13:
+                return "KING";
             default:
                 return "ACE";
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return valueAsString() + getSuit().name();

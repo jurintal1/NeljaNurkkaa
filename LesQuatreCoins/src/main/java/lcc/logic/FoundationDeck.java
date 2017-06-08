@@ -1,5 +1,10 @@
 package lcc.logic;
 
+/**
+ *
+ * Class FoundationDeck represents a deck in in game of Les Quatre Coins, on
+ * which other cards of same suit are built.
+ */
 public class FoundationDeck extends Deck {
 
     private Direction direction;

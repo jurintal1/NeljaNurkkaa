@@ -2,6 +2,10 @@ package lcc.logic;
 
 import java.util.LinkedList;
 
+/**
+ * A class for initializing and accessing Deck objects. Deck is represented as
+ * LinkedList<Card>.
+ */
 abstract public class Deck {
 
     protected LinkedList<Card> deck;

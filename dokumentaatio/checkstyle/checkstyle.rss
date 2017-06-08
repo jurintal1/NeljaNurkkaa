@@ -60,34 +60,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#lcc.logic.Gameplay.java">lcc/logic/Gameplay.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#lcc.logic.Main.java">lcc/logic/Main.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#lcc.logic.Direction.java">lcc/logic/Direction.java</a>
                 </td>
                 <td>
@@ -103,6 +75,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#lcc.logic.CornerDeck.java">lcc/logic/CornerDeck.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#lcc.ui.GUI.java">lcc/ui/GUI.java</a>
                 </td>
                 <td>
                   0
@@ -187,6 +173,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#lcc.logic.Deck.java">lcc/logic/Deck.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#lcc.logic.Table.java">lcc/logic/Table.java</a>
                 </td>
                 <td>
                   0

@@ -1,5 +1,10 @@
 package lcc.logic;
 
+/**
+ * 
+ * The class represents a deck in a game of Les Quatre Coins, from which cards
+ * can be played to foundation decks regardless of suit.
+ */
 public class CornerDeck extends Deck {
 
     public CornerDeck() {

@@ -2,6 +2,10 @@ package lcc.logic;
 
 import java.util.LinkedList;
 
+/**
+ * The class creates and deals cards for manoeuvre decks.
+ *
+ */
 public class Dealer {
 
     public Dealer() {

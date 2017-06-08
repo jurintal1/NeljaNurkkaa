@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lcc.logic;
 
 /**
  *
- * @author o
+ * The class represent a deck in game on Les Quatre Coins, from which cards can
+ * be built to FoundationDeck of same suit.
  */
 public class SideDeck extends Deck {
 
