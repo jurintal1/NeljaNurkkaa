@@ -7,3 +7,5 @@ Päivä | Tunnit | Kuvaus
 24.5. | 7 h | Testejä, luokkakaavio, Checkstyle
 31.5. | 4h | Game-luokka
 1.6. | 8h | Gamea, testejä, dokumentointia
+7.6. | 8h | UI-asioiden opiskelua, grafiikan työstöä
+8.6. | 5h | Testejä, dokumentointia
