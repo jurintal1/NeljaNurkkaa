@@ -1,6 +1,9 @@
 package lcc.logic;
 
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.LinkedList;
+import javafx.scene.image.Image;
 
 /**
  * A class for initializing and accessing Deck objects. Deck is represented as
@@ -22,6 +25,14 @@ abstract public class Deck {
 
     public Card topCard() {
         return this.deck.peek();
+    }
+
+    public Image deckImage() {
+        if (this.deck.size() > 0) {
+            return this.topCard().getImage();
+        } else {
+            return null;
+        }
     }
 
     public Card takeCard() {

@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 
 public class TableTest {
-    private Table table;
+    private Tableau table;
     private Card aceOfClubs;
     private Card kingOfSpades;
     
@@ -23,7 +23,7 @@ public class TableTest {
     
     @Before
     public void setUp() {
-        this.table = new Table();
+        this.table = new Tableau();
         this.kingOfSpades = new Card(13, Suit.SPADES);
         this.aceOfClubs = new Card(1, Suit.CLUBS);
     }

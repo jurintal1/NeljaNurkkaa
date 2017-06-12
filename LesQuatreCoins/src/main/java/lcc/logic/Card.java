@@ -1,16 +1,18 @@
 package lcc.logic;
 
-/**
- * Class represents a playing card.
- */
-import java.net.URL;
-import javax.swing.ImageIcon;
 
+import java.io.Serializable;
+import javafx.scene.image.Image;
+
+
+/**
+ * Class Card represents a playing card.
+ */
 public class Card {
 
-    private Suit suit;
-    private int value;
-    private ImageIcon image;
+    private final Suit suit;
+    private final int value;
+    private final Image image;
 
     public final static int ACE = 1;
     public final static int JACK = 11;
@@ -23,18 +25,11 @@ public class Card {
         }
         this.suit = suit;
         this.value = value;
-
-        URL imgURL = getClass().getResource("/graphics/ACESPADES.png");
-        if (imgURL == null) {
-            this.image = new ImageIcon();
-            System.err.println("card image not found");
-        } else {
-            this.image = new ImageIcon((Card.class.getResource("/graphics/ACESPADES.png")));
-        }
+        this.image = new Image("File:src/main/resources/graphics/" + this.valueAsString() + this.suit + ".png");
 
     }
 
-    public ImageIcon getImage() {
+    public Image getImage() {
         return image;
     }
 
@@ -47,12 +42,12 @@ public class Card {
     }
 
     /**
-     * Represent the value of playing card as String.
-     * The visible representation changes for Aces, Kings, Queens, and Jacks.
+     * Represent the value of playing card as String. The visible representation
+     * changes for Aces, Kings, Queens, and Jacks.
      *
      * @return The card value as String.
      */
-    public String valueAsString() {
+    public final String valueAsString() {
         switch (this.value) {
             case 1:
                 return "ACE";
@@ -85,10 +80,7 @@ public class Card {
         }
     }
 
-    /**
-     *
-     * @return
-     */
+    
     @Override
     public String toString() {
         return valueAsString() + getSuit().name();

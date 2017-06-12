@@ -3,7 +3,7 @@ package lcc.logic;
 /**
  * The class represents all the decks in a game of Les Quatre Coins.
  */
-public class Table {
+public class Tableau {
 
     private CornerDeck upLeftCorner;
     private CornerDeck downLeftCorner;
@@ -30,7 +30,7 @@ public class Table {
 
     private Deck[] manoeuvreDecks;
 
-    public Table() {
+    public Tableau() {
         createFoundationDecks();
         addAcesAndKingsToFoundationDecks();
         createManoeuvreDecks();

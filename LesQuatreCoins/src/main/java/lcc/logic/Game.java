@@ -10,8 +10,8 @@ import lcc.ui.GUI;
 public class Game {
 
     public Game() {
-        Table table = new Table();
-        GUI gui = new GUI(table);
+        Tableau table = new Tableau();
+        GUI gui = new GUI();
     }
 
     public boolean move(Deck source, Deck destination) {

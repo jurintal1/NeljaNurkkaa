@@ -1,77 +1,75 @@
 package lcc.ui;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javax.swing.ImageIcon;
-import lcc.logic.Deck;
-import lcc.logic.Table;
+import lcc.logic.Tableau;
 
 /**
  * Graphical user interface for Les Quatre Coins.
  */
 public class GUI extends Application {
 
-    private Table table;
-
-    public GUI(Table table) {
-        this.table = table;
-    }
-
     @Override
-    public void start(Stage ikkuna) {
-        Button test = new Button("Tämä on nappi");
+    public void start(Stage window) {
 
         GridPane grid = new GridPane();
 
-        grid.setHgap(10);
-        grid.setVgap(10);
+        grid.setHgap(3);
+        grid.setVgap(3);
         grid.setPadding(new Insets(10, 10, 10, 10));
 
-        grid.add(new ImageView(), 0, 3);
-        grid.add(new ImageView(), 0, 3);
+        Tableau table = new Tableau();
 
-        grid.add(new ImageView(), 1, 0);
-        grid.add(new ImageView(), 1, 1);
-        grid.add(new ImageView(), 1, 2);
-        grid.add(new ImageView(), 1, 3);
+        
+        DeckView ulc = new DeckView(table.getUpLeftCorner());
+        ulc.setOnDragDetected((MouseEvent event) -> {
+            Dragboard db = ulc.startDragAndDrop(TransferMode.MOVE);            
+            ClipboardContent content = new ClipboardContent();
+            content.putImage(ulc.getImage());
+            event.consume();
+        });
+        
+        grid.add(new DeckView(table.getUpLeftCorner()), 0, 0);
+        grid.add(new DeckView(table.getDownLeftCorner()), 0, 3);
 
-        grid.add(new ImageView(), 2, 0);
-        grid.add(new ImageView(), 2, 1);
-        grid.add(new ImageView(), 2, 3);
-        grid.add(new ImageView(), 2, 3);
+        grid.add(new DeckView(table.getLeft1()), 1, 0);
+        grid.add(new DeckView(table.getLeft2()), 1, 1);
+        grid.add(new DeckView(table.getLeft3()), 1, 2);
+        grid.add(new DeckView(table.getLeft4()), 1, 3);
 
-        grid.add(new ImageView(), 3, 0);
-        grid.add(new ImageView(), 3, 1);
-        grid.add(new ImageView(), 3, 2);
-        grid.add(new ImageView(), 3, 3);
+        grid.add(new DeckView(table.getClubsUp()), 2, 0);
+        grid.add(new DeckView(table.getDiamondsUp()), 2, 1);
+        grid.add(new DeckView(table.getHeartsUp()), 2, 2);
+        grid.add(new DeckView(table.getSpadesUp()), 2, 3);
 
-        grid.add(new ImageView(), 4, 0);
-        grid.add(new ImageView(), 4, 1);
-        grid.add(new ImageView(), 4, 2);
-        grid.add(new ImageView(), 4, 3);
+        grid.add(new DeckView(table.getClubsDown()), 3, 0);
+        grid.add(new DeckView(table.getDiamondsDown()), 3, 1);
+        grid.add(new DeckView(table.getHeartsDown()), 3, 2);
+        grid.add(new DeckView(table.getSpadesDown()), 3, 3);
 
-        grid.add(new ImageView(), 5, 0);
-        grid.add(new ImageView(), 5, 3);
+        grid.add(new DeckView(table.getRight1()), 4, 0);
+        grid.add(new DeckView(table.getRight2()), 4, 1);
+        grid.add(new DeckView(table.getRight3()), 4, 2);
+        grid.add(new DeckView(table.getRight4()), 4, 3);
 
-        Scene nakyma = new Scene(grid);
+        grid.add(new DeckView(table.getUpRightCorner()), 5, 0);
+        grid.add(new DeckView(table.getDownRightCorner()), 5, 3);
 
-        ikkuna.setScene(nakyma);
-        ikkuna.show();
+        Scene nakyma = new Scene(grid, Color.DARKGREEN);
+
+        window.setScene(nakyma);
+        window.show();
     }
 
-//    public static void refreshDeckImage(GridPane grid, int col, int row, Deck deck) {
-//       ImageIcon image = deck.topCard().getImage();
-//       grid.add(image, col, row);
-//        
-//    }
-//
-//    public static void main(String[] args) {
-//        launch(GUI.class);
-//    }
+    public static void main(String[] args) {
+
+        launch(GUI.class);
+    }
 }
