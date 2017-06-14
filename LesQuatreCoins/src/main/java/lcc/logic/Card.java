@@ -12,7 +12,7 @@ public class Card {
 
     private final Suit suit;
     private final int value;
-    private final Image image;
+    private String imagesource;
 
     public final static int ACE = 1;
     public final static int JACK = 11;
@@ -25,12 +25,12 @@ public class Card {
         }
         this.suit = suit;
         this.value = value;
-        this.image = new Image("File:src/main/resources/graphics/" + this.valueAsString() + this.suit + ".png");
+        this.imagesource = "File:src/main/resources/graphics/" + this.valueAsString() + this.suit + ".png";
 
     }
 
-    public Image getImage() {
-        return image;
+    public String getImageSource() {
+        return imagesource;
     }
 
     public Suit getSuit() {

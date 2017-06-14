@@ -25,15 +25,7 @@ abstract public class Deck {
 
     public Card topCard() {
         return this.deck.peek();
-    }
-
-    public Image deckImage() {
-        if (this.deck.size() > 0) {
-            return this.topCard().getImage();
-        } else {
-            return null;
-        }
-    }
+    }   
 
     public Card takeCard() {
         return this.deck.pop();

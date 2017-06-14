@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 
 public class GameTest {
-    static Game gp;
+    static Rules gp;
     static FoundationDeck fdSpadesUp;
     static FoundationDeck fdHeartsUp;
     static SideDeck sdSpades;
@@ -24,7 +24,7 @@ public class GameTest {
     
     @BeforeClass
     public static void setUpClass() {
-        gp = new Game();
+        gp = new Rules();
         fdSpadesUp = new FoundationDeck(Suit.SPADES, Direction.UP);
         fdHeartsUp = new FoundationDeck(Suit.HEARTS, Direction.UP);
         aceOfSpades = new Card(1, Suit.SPADES);
