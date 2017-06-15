@@ -66,8 +66,7 @@ public class DeckView extends ImageView {
                 Deck sourceDeck = source.getDeck();                
                 DeckView target = (DeckView) event.getGestureTarget();
                 Deck targetDeck = target.getDeck();                
-                if (gameplay.move(sourceDeck, targetDeck)) {
-                    System.out.println("ondragdropped gameplay ok");
+                if (gameplay.move(sourceDeck, targetDeck)) {                    
                     refreshImage();
                     event.setDropCompleted(true);
                 }

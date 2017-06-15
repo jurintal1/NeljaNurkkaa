@@ -66,16 +66,16 @@ abstract public class Deck {
     public String toString() {
         return this.topCard().toString() + " - size " + this.size();
     }
-    
+
     /**
-     * Return the image of top card in the deck, or transparent image if the
-     * is empty
-     * 
+     * Return the image of top card in the deck, or transparent image if the is
+     * empty.
+     *
      * @return top card image or transparent image
      */
-    public Image deckImage()  {        
+    public Image deckImage() {
         if (this.size() == 0) {
-            return new Image("File:src/main/resources/graphics/empty_deck.png");            
+            return new Image("File:src/main/resources/graphics/empty_deck.png");
         }
         return new Image(this.topCard().getImageSource());
     }

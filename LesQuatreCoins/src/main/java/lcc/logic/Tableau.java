@@ -64,7 +64,6 @@ public class Tableau {
             downRightCorner, left1, left2, left3, left4, right1, right2,
             right3, right4};
         this.manoeuvreDecks = mDecks;
-
     }
 
     public Deck[] getManoeuvreDecks() {
@@ -112,7 +111,6 @@ public class Tableau {
         Dealer dealer = new Dealer();
         dealer.deal(this.manoeuvreDecks);
     }
-
 
     public CornerDeck getUpLeftCorner() {
         return upLeftCorner;

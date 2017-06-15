@@ -4,24 +4,24 @@ import lcc.ui.GUI;
 
 /**
  *
- * Class controls the manner in which cards be moved from one pile to
- * another, and the accumulation of score points.
+ * Class controls the manner in which cards be moved from one pile to another,
+ * and the accumulation of score points.
  */
 public class Gameplay {
-    
+
     public boolean complete;
 
     private int score;
     static final int MOVE = 1;
     static final int MOVE_TO_FOUNDATION = 10;
     static final int FOUNDATION_COMPLETE = 1000;
-    static final int GAME_COMPLETE = 100000;    
-    
+    static final int GAME_COMPLETE = 100000;
+
     private final Tableau table;
 
     /**
-     * new GamePlay
-     * 
+     * new GamePlay.
+     *
      * @param table for checking if the game is complete
      */
     public Gameplay(Tableau table) {
@@ -66,35 +66,30 @@ public class Gameplay {
         this.score = this.score + MOVE_TO_FOUNDATION;
         Card movingCard = source.takeCard();
         target.addCard(movingCard);
-        if(movingCard.getValue()==1 || movingCard.getValue()==13) {
+        if (movingCard.getValue() == 1 || movingCard.getValue() == 13) {
             complete();
         }
         return true;
     }
-    
-     /**
+
+    /**
      * Checks if the game is complete.
      *
-     * 
+     *
      */
     public void complete() {
         for (Deck fd : table.getFoundationDecks()) {
             if (fd.size() < 13) {
                 return;
-            }            
+            }
         }
         this.complete = true;
-        
+
     }
 
     public boolean isComplete() {
         return complete;
     }
-    
-    
-
-    
-    
 
     public int getScore() {
         return this.score;
