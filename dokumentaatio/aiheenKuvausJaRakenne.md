@@ -5,7 +5,7 @@ Tehdään lisäksi pisteytysjärjestelmä ja siihen perustuva high score lista.
 
 ![luokkakaavio](/dokumentaatio/javalabra-luokkakaavio.jpg)
 
-![sekvenssikaavio](/dokumentaatio/handle_sekvenssi.jpg)
+![sekvenssikaavio](/dokumentaatio/handle_sekvenssi.png)
 
 
  
