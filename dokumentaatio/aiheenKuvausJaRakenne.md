@@ -7,6 +7,7 @@ Tehdään lisäksi pisteytysjärjestelmä ja siihen perustuva high score lista.
 
 ![luokkakaavio](/dokumentaatio/javalabra-luokkakaavio.png)
 
+
 ![sekvenssikaavio](/dokumentaatio/handle_sekvenssi.png)
 
 
