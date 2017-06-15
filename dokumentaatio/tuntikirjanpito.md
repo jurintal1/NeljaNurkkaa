@@ -9,3 +9,7 @@ Päivä | Tunnit | Kuvaus
 1.6. | 8h | Gamea, testejä, dokumentointia
 7.6. | 8h | UI-asioiden opiskelua, grafiikan työstöä
 8.6. | 5h | Testejä, dokumentointia
+12.6. | 5h | Käyttöliittymä
+13.6. | 5h | Käyttöliittymä
+14.6. | 5h | high score, testejä
+15.6. | 8h | korjauksia, dokumentointia
