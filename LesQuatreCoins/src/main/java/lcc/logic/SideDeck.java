@@ -9,6 +9,12 @@ public class SideDeck extends Deck {
 
     private Suit suit;
 
+    /**
+     * Creates a new side deck.
+     *
+     * @param suit defines to which foundation decks cards can be played from
+     * this deck
+     */
     public SideDeck(Suit suit) {
         super();
         this.suit = suit;

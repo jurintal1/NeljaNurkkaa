@@ -1,9 +1,7 @@
 package lcc.logic;
 
-
 import java.io.Serializable;
 import javafx.scene.image.Image;
-
 
 /**
  * Class Card represents a playing card.
@@ -19,6 +17,13 @@ public class Card {
     public final static int QUEEN = 12;
     public final static int KING = 13;
 
+    /**
+     * Creates a card with the defined value and constructs a path to the
+     * corresponding image file.
+     *
+     * @param value card face value
+     * @param suit card suit
+     */
     public Card(int value, Suit suit) {
         if (value < 1 || value > 13) {
             throw new IllegalArgumentException("illegal card value");
@@ -80,7 +85,6 @@ public class Card {
         }
     }
 
-    
     @Override
     public String toString() {
         return valueAsString() + getSuit().name();

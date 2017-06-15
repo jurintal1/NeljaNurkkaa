@@ -1,12 +1,24 @@
-
 package lcc.highscorelist;
 
 import java.io.Serializable;
 
+/**
+ * Creates objects with a name and a score to be used in the high score list.
+ *
+ * @see HighScoreList
+ *
+ */
 public class HighScore implements Comparable<HighScore>, Serializable {
+
     String name;
     int score;
 
+    /**
+     * Creates a new HighScore object.
+     *
+     * @param name  player name
+     * @param score game score
+     */
     public HighScore(String name, int score) {
         this.name = name;
         this.score = score;
@@ -27,7 +39,13 @@ public class HighScore implements Comparable<HighScore>, Serializable {
     public void setScore(int score) {
         this.score = score;
     }
-    
+
+    /**
+     * HighScore objects are arranged according to score.
+     *
+     * @param other comparable
+     * @return comparison value
+     */
     public int compareTo(HighScore other) {
         return this.getScore() - other.getScore();
     }
@@ -36,9 +54,5 @@ public class HighScore implements Comparable<HighScore>, Serializable {
     public String toString() {
         return this.name + " " + this.score;
     }
-    
-    
-    
-    
-    
+
 }

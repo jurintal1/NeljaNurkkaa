@@ -8,12 +8,12 @@
         </goals>
     </action>
     <action>
-    <actionName>CUSTOM-checkstyle</actionName>
-    <displayName>Checkstyle</displayName>
-    <goals>
-      <goal>jxr:jxr</goal>
-      <goal>checkstyle:checkstyle</goal>
-    </goals>
-  </action>	
+   	 <actionName>CUSTOM-checkstyle</actionName>
+   	 <displayName>Checkstyle</displayName>
+   	 <goals>
+     		 <goal>jxr:jxr</goal>
+     		 <goal>checkstyle:checkstyle</goal>
+   	 </goals>
+     </action>	
 </actions>
 

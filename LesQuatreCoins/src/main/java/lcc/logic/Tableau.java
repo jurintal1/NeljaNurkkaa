@@ -5,6 +5,8 @@ package lcc.logic;
  */
 public class Tableau {
 
+    private boolean complete;
+
     private CornerDeck upLeftCorner;
     private CornerDeck downLeftCorner;
     private CornerDeck upRightCorner;
@@ -29,14 +31,22 @@ public class Tableau {
     private FoundationDeck spadesDown;
 
     private Deck[] manoeuvreDecks;
+    private Deck[] foundationDecks;
 
+    /**
+     * Creates and deals the cards for the beginning the game.
+     */
     public Tableau() {
+        this.complete = false;
         createFoundationDecks();
         addAcesAndKingsToFoundationDecks();
         createManoeuvreDecks();
         dealToManoeuvreDecks();
     }
 
+    /**
+     * Creates the decks on which cards be played.
+     */
     public final void createManoeuvreDecks() {
         this.upLeftCorner = new CornerDeck();
         this.downLeftCorner = new CornerDeck();
@@ -50,16 +60,20 @@ public class Tableau {
         this.right2 = new SideDeck(Suit.DIAMONDS);
         this.right3 = new SideDeck(Suit.HEARTS);
         this.right4 = new SideDeck(Suit.SPADES);
-        Deck[] decks = {upLeftCorner, downLeftCorner, upRightCorner,
+        Deck[] mDecks = {upLeftCorner, downLeftCorner, upRightCorner,
             downRightCorner, left1, left2, left3, left4, right1, right2,
             right3, right4};
-        this.manoeuvreDecks = decks;
+        this.manoeuvreDecks = mDecks;
+
     }
 
     public Deck[] getManoeuvreDecks() {
         return manoeuvreDecks;
     }
 
+    /**
+     * Creates the decks on which cards of same suit will be built.
+     */
     public final void createFoundationDecks() {
         this.clubsDown = new FoundationDeck(Suit.CLUBS, Direction.DOWN);
         this.clubsUp = new FoundationDeck(Suit.CLUBS, Direction.UP);
@@ -69,9 +83,15 @@ public class Tableau {
         this.heartsUp = new FoundationDeck(Suit.HEARTS, Direction.UP);
         this.spadesDown = new FoundationDeck(Suit.SPADES, Direction.DOWN);
         this.spadesUp = new FoundationDeck(Suit.SPADES, Direction.UP);
+        Deck[] fDecks = {clubsDown, clubsUp, diamondsDown, diamondsUp,
+            heartsDown, heartsUp, spadesDown, spadesUp};
+        this.foundationDecks = fDecks;
 
     }
 
+    /**
+     * Creates and adds the initial cards to foundation decks.
+     */
     public final void addAcesAndKingsToFoundationDecks() {
         clubsDown.addCard(new Card(Card.KING, Suit.CLUBS));
         clubsUp.addCard(new Card(Card.ACE, Suit.CLUBS));
@@ -83,11 +103,16 @@ public class Tableau {
         spadesUp.addCard(new Card(Card.ACE, Suit.SPADES));
     }
 
+    /**
+     * Deals the cards to manoeuvre decks.
+     *
+     * @see Dealer
+     */
     public final void dealToManoeuvreDecks() {
         Dealer dealer = new Dealer();
         dealer.deal(this.manoeuvreDecks);
-
     }
+
 
     public CornerDeck getUpLeftCorner() {
         return upLeftCorner;
@@ -167,6 +192,10 @@ public class Tableau {
 
     public FoundationDeck getSpadesDown() {
         return spadesDown;
+    }
+
+    public Deck[] getFoundationDecks() {
+        return foundationDecks;
     }
 
 }

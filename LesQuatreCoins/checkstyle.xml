@@ -9,7 +9,7 @@
     <module name='TreeWalker'>
 
         <property name='tabWidth' value='4' />
-        <!--- JavaDoc --->
+        <!-- JavaDoc -->
 
 	<module name="JavadocMethod">
     		<property name="scope" value="public"/>
@@ -94,6 +94,9 @@
 
     <module name='FileLength'>
         <property name='max' value='200' />
+    </module>
+    <module name="SuppressionFilter">
+    	<property name="file" value="mysuppressions.xml" />
     </module>
 
 </module>

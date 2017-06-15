@@ -9,17 +9,9 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -27,7 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lcc.highscorelist.HighScore;
 import lcc.highscorelist.HighScoreList;
-import lcc.logic.Rules;
+import lcc.logic.Gameplay;
 import lcc.logic.Tableau;
 
 /**
@@ -36,54 +28,63 @@ import lcc.logic.Tableau;
 public class GUI extends Application {
 
     private Stage window;
-    private Rules rules;
+    private Gameplay gameplay;
     private HighScoreList list;
     private Scene mainView;
-    private Scene FormView;
+    private Scene formView;
     private HighScoreList highScoreList;
+    private Tableau table;
 
     @Override
-    public void start(Stage window) {
-        this.window = window;
-        newGame();
+    public void start(Stage window) {        
+        newGame(window);
     }
 
-    public void newGame() {
-        this.rules = new Rules();
+    /**
+     * Starts a new game.
+     */
+    public void newGame(Stage window) {
+        this.window = window;
+        this.table = new Tableau();
+        this.gameplay = new Gameplay(table);
         this.list = new HighScoreList();
         this.highScoreList = new HighScoreList();
 
         window.setTitle("Les Quatre Coins");
         this.mainView = createMainView();
-        this.FormView = createFormView();
+        this.formView = createFormView();
         window.setScene(mainView);
         window.show();
 
     }
 
+    /**
+     * Creates the game view.
+     *
+     * @return Scene
+     */
     public Scene createMainView() {
         BorderPane bPane = new BorderPane();
-
         VBox rightBox = new VBox();
         rightBox.setPadding(new Insets(100, 100, 100, 100));
         rightBox.setSpacing(30);
         rightBox.setBackground(new Background(new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        Label score = new Label("" + rules.getScore());
+        Label score = new Label("" + gameplay.getScore());
         score.setTextFill(Color.WHITESMOKE);
         score.setFont(new Font("Arial", 60));
 
         Button restart = new Button("Aloita alusta");
         restart.setOnAction(e -> {
-            if (list.checkList(rules.getScore())) {
+            if (list.checkList(gameplay.getScore())) {
                 window.setScene(mainView);
             }
-            newGame();
+            newGame(this.window);
         });
 
         Button highscores = new Button("High Score -lista");
         highscores.setOnAction(e -> {
-            try {           
+            try {
                 window.setScene(createListView());
             } catch (IOException ex) {
                 System.out.println("ei onnistu");
@@ -91,11 +92,9 @@ public class GUI extends Application {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         });
-        
-        
-        
+
         rightBox.getChildren().addAll(score, restart, highscores);
         bPane.setRight(rightBox);
 
@@ -109,35 +108,40 @@ public class GUI extends Application {
 
         Tableau table = new Tableau();
 
-        grid.add(new DeckView(table.getUpLeftCorner(), rules, score), 0, 0);
-        grid.add(new DeckView(table.getDownLeftCorner(), rules, score), 0, 3);
+        grid.add(new DeckView(table.getUpLeftCorner(), gameplay, score), 0, 0);
+        grid.add(new DeckView(table.getDownLeftCorner(), gameplay, score), 0, 3);
 
-        grid.add(new DeckView(table.getLeft1(), rules, score), 1, 0);
-        grid.add(new DeckView(table.getLeft2(), rules, score), 1, 1);
-        grid.add(new DeckView(table.getLeft3(), rules, score), 1, 2);
-        grid.add(new DeckView(table.getLeft4(), rules, score), 1, 3);
+        grid.add(new DeckView(table.getLeft1(), gameplay, score), 1, 0);
+        grid.add(new DeckView(table.getLeft2(), gameplay, score), 1, 1);
+        grid.add(new DeckView(table.getLeft3(), gameplay, score), 1, 2);
+        grid.add(new DeckView(table.getLeft4(), gameplay, score), 1, 3);
 
-        grid.add(new DeckView(table.getClubsUp(), rules, score), 2, 0);
-        grid.add(new DeckView(table.getDiamondsUp(), rules, score), 2, 1);
-        grid.add(new DeckView(table.getHeartsUp(), rules, score), 2, 2);
-        grid.add(new DeckView(table.getSpadesUp(), rules, score), 2, 3);
+        grid.add(new DeckView(table.getClubsUp(), gameplay, score), 2, 0);
+        grid.add(new DeckView(table.getDiamondsUp(), gameplay, score), 2, 1);
+        grid.add(new DeckView(table.getHeartsUp(), gameplay, score), 2, 2);
+        grid.add(new DeckView(table.getSpadesUp(), gameplay, score), 2, 3);
 
-        grid.add(new DeckView(table.getClubsDown(), rules, score), 3, 0);
-        grid.add(new DeckView(table.getDiamondsDown(), rules, score), 3, 1);
-        grid.add(new DeckView(table.getHeartsDown(), rules, score), 3, 2);
-        grid.add(new DeckView(table.getSpadesDown(), rules, score), 3, 3);
+        grid.add(new DeckView(table.getClubsDown(), gameplay, score), 3, 0);
+        grid.add(new DeckView(table.getDiamondsDown(), gameplay, score), 3, 1);
+        grid.add(new DeckView(table.getHeartsDown(), gameplay, score), 3, 2);
+        grid.add(new DeckView(table.getSpadesDown(), gameplay, score), 3, 3);
 
-        grid.add(new DeckView(table.getRight1(), rules, score), 4, 0);
-        grid.add(new DeckView(table.getRight2(), rules, score), 4, 1);
-        grid.add(new DeckView(table.getRight3(), rules, score), 4, 2);
-        grid.add(new DeckView(table.getRight4(), rules, score), 4, 3);
+        grid.add(new DeckView(table.getRight1(), gameplay, score), 4, 0);
+        grid.add(new DeckView(table.getRight2(), gameplay, score), 4, 1);
+        grid.add(new DeckView(table.getRight3(), gameplay, score), 4, 2);
+        grid.add(new DeckView(table.getRight4(), gameplay, score), 4, 3);
 
-        grid.add(new DeckView(table.getUpRightCorner(), rules, score), 5, 0);
-        grid.add(new DeckView(table.getDownRightCorner(), rules, score), 5, 3);
+        grid.add(new DeckView(table.getUpRightCorner(), gameplay, score), 5, 0);
+        grid.add(new DeckView(table.getDownRightCorner(), gameplay, score), 5, 3);
 
         return new Scene(bPane, Color.FORESTGREEN);
     }
 
+    /**
+     * Creates the form view for high score list entry.
+     *
+     * @return Scene
+     */
     public Scene createFormView() {
         GridPane grid = new GridPane();
         grid.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -172,19 +176,31 @@ public class GUI extends Application {
 
     }
 
-    public Scene createListView() throws IOException, FileNotFoundException, ClassNotFoundException {       
+    /**
+     * Creates the view for high score list.
+     *
+     * @return the Scene with a view of high score list
+     * @throws IOException file can't be read
+     * @throws FileNotFoundException file not found
+     * @throws ClassNotFoundException can't read ArrayList from File
+     */
+    public Scene createListView() throws IOException, FileNotFoundException, ClassNotFoundException {
 
         TextArea text = new TextArea();
-        ArrayList<HighScore> scores = highScoreList.loadFile();
+        ArrayList<HighScore> scores = highScoreList.getListFromFile();
         for (int i = 0; i < 10; i++) {
+
             text.appendText(scores.get(i).toString() + "\n");
         }
         BorderPane bp = new BorderPane(text);
         return new Scene(bp);
     }
-    
-    
 
+    /**
+     * and this here starts the whole thing.
+     *
+     * @param args aargh
+     */
     public static void main(String[] args) {
         launch(GUI.class);
     }

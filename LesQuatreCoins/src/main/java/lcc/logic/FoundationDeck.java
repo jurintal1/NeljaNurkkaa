@@ -7,9 +7,15 @@ package lcc.logic;
  */
 public class FoundationDeck extends Deck {
 
-    private Direction direction;
-    private Suit suit;
+    private final Direction direction;
+    private final Suit suit;
 
+    /**
+     * Creates the deck with the Deck constructor and adds suit and direction.
+     *
+     * @param suit The suit of cards that can be played on this deck
+     * @param direction The order in which cards can played on this deck
+     */
     public FoundationDeck(Suit suit, Direction direction) {
         super();
         this.direction = direction;

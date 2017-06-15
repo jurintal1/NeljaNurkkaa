@@ -10,13 +10,16 @@ import java.util.Random;
  */
 public class Dealer {
 
+    /**
+     * A new dealer.
+     */
     public Dealer() {
     }
 
     /**
-     * Deals the LCC cards to defined decks.
+     * Deals the LCC cards.
      *
-     * @param decks
+     * @param decks where the cards are dealt
      */
     public void deal(Deck[] decks) {
         LinkedList<Card> cards = createLesQuatreCoinsCards();
@@ -34,7 +37,7 @@ public class Dealer {
      * Creates and shuffles the cards for LCC. One set of aces and kings is
      * created in Tableau.createFoundationDecks().
      *
-     * @return return the necessary cards as LinkedList.
+     * @return the necessary cards as LinkedList.
      */
     public LinkedList<Card> createLesQuatreCoinsCards() {
         // 
@@ -46,10 +49,11 @@ public class Dealer {
     }
 
     /**
-     * Creates Card objects between the defined values.     *
-     * @param minValue
-     * @param maxValue
-     * @return Returns the cards as LinkedList.
+     * Creates Card objects between the defined values.
+     *
+     * @param minValue minimun face value in the cards created
+     * @param maxValue maximum face value in the cards created
+     * @return the cards as linked list
      */
     public LinkedList createCards(int minValue, int maxValue) {
         LinkedList<Card> cards = new LinkedList();

@@ -2,41 +2,40 @@ package lcc.ui;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import lcc.logic.Deck;
 import lcc.logic.FoundationDeck;
-import lcc.logic.Rules;
-import lcc.logic.SideDeck;
+import lcc.logic.Gameplay;
 
 /**
- * This class creates the visual representation for a <Deck> in UI, and provides
+ * This class creates the visual representation for a deck in UI, and provides
  * the methods for drag and drop operations.
  *
  */
 public class DeckView extends ImageView {
 
     private final Deck deck;
-    private final Rules rules;
+    private final Gameplay gameplay;
 
     /**
      * ImageView constructor is used for the visuals and drag and drop
      * operations.
      *
-     *
-     * @param deck
+     * @param deck the deck shown here
+     * @param gameplay for checking the legality of moves
+     * @param score for displaying the score in UI after a move
      */
-    public DeckView(Deck deck, Rules rules, Label score) {
-        super.setImage(new Image(deck.topCard().getImageSource()));
+    public DeckView(Deck deck, Gameplay gameplay, Label score) {
+        super.setImage(deck.deckImage());
         this.deck = deck;
-        this.rules = new Rules();
+        this.gameplay = gameplay;
 
         /**
-         * Cards cannot be moved from <FoundationDeck>.
+         * Cards cannot be moved from a foundation deck or empty deck.
          */
         super.setOnDragDetected((MouseEvent event) -> {
-            if (!(deck instanceof FoundationDeck)) {
+            if (!(deck instanceof FoundationDeck) && !(deck.size() == 0)) {
                 Dragboard db = super.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
                 content.putImage(super.getImage());
@@ -47,6 +46,7 @@ public class DeckView extends ImageView {
         });
 
         super.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != this) {
                     event.acceptTransferModes(TransferMode.MOVE);
@@ -56,30 +56,24 @@ public class DeckView extends ImageView {
         });
 
         /**
-         * <Rules.move> is called to assess if the card can be moved.
+         * gameplay is called to assess if the card can be moved. *
+         *
          */
         super.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
-            public void handle(DragEvent event) {
-
+            public void handle(DragEvent event) {                
                 DeckView source = (DeckView) event.getGestureSource();
-                Deck sourceDeck = source.getDeck();
-                System.out.println(sourceDeck.getClass());
+                Deck sourceDeck = source.getDeck();                
                 DeckView target = (DeckView) event.getGestureTarget();
-                Deck targetDeck = target.getDeck();
-                System.out.println(targetDeck.getClass());
-
-                if (rules.move(sourceDeck, targetDeck)) {
+                Deck targetDeck = target.getDeck();                
+                if (gameplay.move(sourceDeck, targetDeck)) {
+                    System.out.println("ondragdropped gameplay ok");
                     refreshImage();
                     event.setDropCompleted(true);
                 }
                 event.consume();
             }
         });
-        
-        
-        
-        
 
         /**
          * After a card is moved, the source deck image is updated.
@@ -88,14 +82,16 @@ public class DeckView extends ImageView {
             @Override
             public void handle(DragEvent event) {
                 refreshImage();
-                score.setText("" + rules.getScore());
+                score.setText("" + gameplay.getScore());
+                if (gameplay.isComplete()) {
+                    // tässä johonkin lopetusrutiiniin
+                }
                 event.consume();
             }
         });
 
     }
-    
-    
+
     public Deck getDeck() {
         return deck;
 
@@ -105,7 +101,7 @@ public class DeckView extends ImageView {
      * Refreshes the deck image to show the current top card.
      */
     public void refreshImage() {
-        super.setImage(new Image(this.deck.topCard().getImageSource()));
+        super.setImage(this.deck.deckImage());
     }
 
 }
