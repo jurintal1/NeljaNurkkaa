@@ -47,7 +47,7 @@ public class HighScore implements Comparable<HighScore>, Serializable {
      * @return comparison value
      */
     public int compareTo(HighScore other) {
-        return this.getScore() - other.getScore();
+        return other.getScore() - this.getScore(); 
     }
 
     @Override

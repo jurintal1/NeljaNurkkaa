@@ -1,10 +1,6 @@
 package lcc.ui;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,11 +22,10 @@ import lcc.logic.Tableau;
  */
 public class GUI extends Application {
 
-    private Stage window;
+    private Stage stage;
     private Gameplay gameplay;
     private HighScoreList list;
     private Scene mainView;
-    private Scene formView;
     private HighScoreList highScoreList;
     private Tableau table;
 
@@ -42,20 +37,19 @@ public class GUI extends Application {
     /**
      * Starts a new game.
      *
-     * @param window the one and only window this game uses
+     * @param stage the one and only stage this gui uses
      */
-    public void newGame(Stage window) {
-        this.window = window;
+    public void newGame(Stage stage) {
+        this.stage = stage;
         this.table = new Tableau();
         this.gameplay = new Gameplay(table);
         this.list = new HighScoreList();
         this.highScoreList = new HighScoreList();
 
-        window.setTitle("Les Quatre Coins");
+        stage.setTitle("Les Quatre Coins");
         this.mainView = createMainView();
-        this.formView = createFormView();
-        window.setScene(mainView);
-        window.show();
+        stage.setScene(mainView);
+        stage.show();
 
     }
 
@@ -77,15 +71,15 @@ public class GUI extends Application {
 
         Button restart = new Button("Aloita alusta");
         restart.setOnAction(e -> {
-//            if (list.checkList(gameplay.getScore())) {
-//                window.setScene(mainView);
-//            }
-            newGame(this.window);
+            if (list.checkList(gameplay.getScore())) {
+                stage.setScene(createFormView());
+            }
+            newGame(this.stage);
         });
 
         Button highscores = new Button("High Score -lista");
         highscores.setOnAction(e -> {
-            window.setScene(createListView());
+            this.stage.setScene(createListView());
 
         });
 
@@ -125,7 +119,7 @@ public class GUI extends Application {
         grid.add(new DeckView(table.getUpRightCorner(), gameplay, score), 5, 0);
         grid.add(new DeckView(table.getDownRightCorner(), gameplay, score), 5, 3);
 
-        return new Scene(bPane, Color.FORESTGREEN);
+        return new Scene(bPane, 1200, 680, Color.FORESTGREEN);
     }
 
     /**
@@ -172,17 +166,30 @@ public class GUI extends Application {
      *
      * @return the Scene with a view of high score list
      */
-    public Scene createListView() {
-
-        TextArea text = new TextArea();
-        ArrayList<HighScore> scores = highScoreList.getListFromFile();
-        if (!scores.isEmpty()) {
-            for (int i = 0; i < 10; i++) {
-                text.appendText(scores.get(i).toString() + "\n");
+    public Scene createListView() {        
+        ArrayList<HighScore> list = highScoreList.getListFromFile();
+        String listString = " ";
+        if (!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                listString += list.get(i).toString() + "\n";
             }
         }
-        BorderPane bp = new BorderPane(text);
-        return new Scene(bp);
+        Text text = new Text(listString);        
+        text.setFont(new Font("Arial", 40));                
+        
+        Button back = new Button("Takaisin peliin");
+        back.setOnAction(e -> {
+            this.stage.setScene(this.mainView);
+
+        });
+        
+        VBox vb = new VBox(text, back);
+        vb.setPadding(new Insets(25, 25, 25, 25));
+        vb.setAlignment(Pos.CENTER);
+        vb.setBackground(
+                new Background
+                (new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        return new Scene(vb, 1200, 680);
     }
 
     /**

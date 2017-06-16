@@ -40,9 +40,18 @@ public class HighScoreList {
      *
      * @param hs new score
      */
-    public void add(ArrayList<HighScore> list, HighScore hs) {
+    public void add(HighScore hs) {
+        ArrayList<HighScore> list = getListFromFile();
+        System.out.println(list);
         list.add(hs);
+
+        System.out.println(list);
         Collections.sort(list);
+        if (list.size() > 10) {
+            list.remove(10);
+        }
+        System.out.println(list);
+        saveFile(list);
     }
 
     /**
@@ -58,8 +67,8 @@ public class HighScoreList {
             oos = new ObjectOutputStream(fos);
             oos.writeObject(list);
             oos.close();
-            fos.close();           
-            
+            fos.close();
+
         } catch (IOException ex) {
         }
     }
@@ -83,7 +92,7 @@ public class HighScoreList {
             ois.close();
 
         } catch (IOException | ClassNotFoundException ex) {
-            System.out.println("ei löyvy!!");
+            System.out.println("ei onnistu");
         }
         return list;
 
