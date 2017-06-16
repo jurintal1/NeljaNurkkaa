@@ -13,8 +13,7 @@ import java.util.logging.Logger;
 
 public class HighScoreList {
 
-    private ArrayList<HighScore> list;
-    private final String highScorefile = "src/main/resources/highscorelist.txt";
+    private final String highScorefile = "src/main/resources/highscorelist";
 
     /**
      * Creates a new list.
@@ -29,10 +28,10 @@ public class HighScoreList {
      * @return boolean
      */
     public boolean checkList(int score) {
-//        getListFromFile();
-//        if (score > this.list.get(this.list.size() - 1).getScore()) {
-//            return true;
-//        }
+        ArrayList<HighScore> list = getListFromFile();
+        if (score > list.get(list.size() - 1).getScore()) {
+            return true;
+        }
         return false;
     }
 
@@ -41,61 +40,52 @@ public class HighScoreList {
      *
      * @param hs new score
      */
-    public void add(HighScore hs) {
-        this.list.add(hs);
-        Collections.sort(this.list);
+    public void add(ArrayList<HighScore> list, HighScore hs) {
+        list.add(hs);
+        Collections.sort(list);
     }
 
     /**
      * Saves the list object into a file.
      *
+     * @param list highscore list to be saved
      */
-    public void saveFile() {
+    public void saveFile(ArrayList<HighScore> list) {
         FileOutputStream fos;
+        ObjectOutputStream oos;
         try {
             fos = new FileOutputStream(this.highScorefile);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(HighScoreList.class.getName()).log(Level.SEVERE, null, ex);
-            return;
-        }
-        try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(this.list);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(list);
+            oos.close();
+            fos.close();           
+            
         } catch (IOException ex) {
-            Logger.getLogger(HighScoreList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      * Loads the high score list from a file.
      *
-     * @return ArrayList high score list
+     * @return returns an empty list, if file not found!
      */
     public ArrayList<HighScore> getListFromFile() {
 
         FileInputStream fis;
-        try {
-            fis = new FileInputStream(highScorefile);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(HighScoreList.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        ObjectInputStream ois;
+        ArrayList<HighScore> list = new ArrayList();
 
         try {
-            if (fis.available() > 0) {
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                {
-                    try {
-                        this.list = (ArrayList<HighScore>) ois.readObject();
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(HighScoreList.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    return this.list;
-                }
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(HighScoreList.class.getName()).log(Level.SEVERE, null, ex);
+            fis = new FileInputStream(highScorefile);
+            ois = new ObjectInputStream(fis);
+            list = (ArrayList<HighScore>) ois.readObject();
+            fis.close();
+            ois.close();
+
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println("ei löyvy!!");
         }
-        return null;
+        return list;
 
     }
 }

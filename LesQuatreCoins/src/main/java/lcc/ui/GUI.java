@@ -10,7 +10,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -36,12 +35,14 @@ public class GUI extends Application {
     private Tableau table;
 
     @Override
-    public void start(Stage window) {        
+    public void start(Stage window) {
         newGame(window);
     }
 
     /**
      * Starts a new game.
+     *
+     * @param window the one and only window this game uses
      */
     public void newGame(Stage window) {
         this.window = window;
@@ -76,22 +77,15 @@ public class GUI extends Application {
 
         Button restart = new Button("Aloita alusta");
         restart.setOnAction(e -> {
-            if (list.checkList(gameplay.getScore())) {
-                window.setScene(mainView);
-            }
+//            if (list.checkList(gameplay.getScore())) {
+//                window.setScene(mainView);
+//            }
             newGame(this.window);
         });
 
         Button highscores = new Button("High Score -lista");
         highscores.setOnAction(e -> {
-            try {
-                window.setScene(createListView());
-            } catch (IOException ex) {
-                System.out.println("ei onnistu");
-                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            window.setScene(createListView());
 
         });
 
@@ -106,11 +100,8 @@ public class GUI extends Application {
         grid.setVgap(3);
         grid.setPadding(new Insets(10, 100, 10, 100));
 
-        Tableau table = new Tableau();
-
         grid.add(new DeckView(table.getUpLeftCorner(), gameplay, score), 0, 0);
         grid.add(new DeckView(table.getDownLeftCorner(), gameplay, score), 0, 3);
-
         grid.add(new DeckView(table.getLeft1(), gameplay, score), 1, 0);
         grid.add(new DeckView(table.getLeft2(), gameplay, score), 1, 1);
         grid.add(new DeckView(table.getLeft3(), gameplay, score), 1, 2);
@@ -180,17 +171,15 @@ public class GUI extends Application {
      * Creates the view for high score list.
      *
      * @return the Scene with a view of high score list
-     * @throws IOException file can't be read
-     * @throws FileNotFoundException file not found
-     * @throws ClassNotFoundException can't read ArrayList from File
      */
-    public Scene createListView() throws IOException, FileNotFoundException, ClassNotFoundException {
+    public Scene createListView() {
 
         TextArea text = new TextArea();
         ArrayList<HighScore> scores = highScoreList.getListFromFile();
-        for (int i = 0; i < 10; i++) {
-
-            text.appendText(scores.get(i).toString() + "\n");
+        if (!scores.isEmpty()) {
+            for (int i = 0; i < 10; i++) {
+                text.appendText(scores.get(i).toString() + "\n");
+            }
         }
         BorderPane bp = new BorderPane(text);
         return new Scene(bp);
@@ -199,7 +188,7 @@ public class GUI extends Application {
     /**
      * and this here starts the whole thing.
      *
-     * @param args aargh
+     * @param args
      */
     public static void main(String[] args) {
         launch(GUI.class);
