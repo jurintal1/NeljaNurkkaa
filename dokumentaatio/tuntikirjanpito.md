@@ -13,3 +13,4 @@ Päivä | Tunnit | Kuvaus
 13.6. | 5h | Käyttöliittymä
 14.6. | 5h | high score, testejä
 15.6. | 8h | korjauksia, dokumentointia
+17.6. | 4h | highscorelist kuntoon
