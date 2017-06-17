@@ -2,7 +2,7 @@
 
 Java-pasianssi ohjelmoinnin harjoitustyönä.
 
-Peli on nimeltään Les Quotre Coins, ja säännöt menevät suunnilleen näin: 
+Peli on nimeltään Les Quotre Coins, sääntöversiona käytetään tätä: 
 http://dogmelon.com.au/solhelp/Corner%20Stones.php. Lisäksi pisteytysjärjestelmä ja siihen perustuva high score -lista.
 
 #### Dokumentaatio
