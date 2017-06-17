@@ -1,9 +1,9 @@
 # NeljaNurkkaa
 
-Java-pasianssi ohjelmoinnin harjoitustyönä. Work in Progress.
+Java-pasianssi ohjelmoinnin harjoitustyönä.
 
 Peli on nimeltään Les Quotre Coins, ja säännöt menevät suunnilleen näin: 
-http://dogmelon.com.au/solhelp/Corner%20Stones.php. Tehdään lisäksi pisteytysjärjestelmä ja siihen perustuva high score -lista.
+http://dogmelon.com.au/solhelp/Corner%20Stones.php. Lisäksi pisteytysjärjestelmä ja siihen perustuva high score -lista.
 
 #### Dokumentaatio
  * [Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
