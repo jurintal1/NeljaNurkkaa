@@ -20,7 +20,8 @@ public class HighScore implements Comparable<HighScore>, Serializable {
      * @param score game score
      */
     public HighScore(String name, int score) {
-        this.name = name;
+        String trimmed = name.trim();
+        this.name = trimmed.substring(0, Math.min(trimmed.length(), 20));        
         this.score = score;
     }
 

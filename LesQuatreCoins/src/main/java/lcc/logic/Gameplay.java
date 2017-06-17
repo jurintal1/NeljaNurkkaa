@@ -87,8 +87,8 @@ public class Gameplay {
 
     }
 
-    public boolean isComplete() {
-        return complete;
+    public boolean isComplete() {        
+        return this.complete;
     }
 
     public int getScore() {

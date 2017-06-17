@@ -17,6 +17,7 @@ public class DeckView extends ImageView {
 
     private final Deck deck;
     private final Gameplay gameplay;
+    private final GUI gui;
 
     /**
      * ImageView constructor is used for the visuals and drag and drop
@@ -26,10 +27,11 @@ public class DeckView extends ImageView {
      * @param gameplay for checking the legality of moves
      * @param score for displaying the score in UI after a move
      */
-    public DeckView(Deck deck, Gameplay gameplay, Label score) {
+    public DeckView(Deck deck, Gameplay gameplay, GUI gui) {
         super.setImage(deck.deckImage());
         this.deck = deck;
         this.gameplay = gameplay;
+        this.gui = gui;
 
         /**
          * Cards cannot be moved from a foundation deck or empty deck.
@@ -61,12 +63,12 @@ public class DeckView extends ImageView {
          */
         super.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
-            public void handle(DragEvent event) {                
+            public void handle(DragEvent event) {
                 DeckView source = (DeckView) event.getGestureSource();
-                Deck sourceDeck = source.getDeck();                
+                Deck sourceDeck = source.getDeck();
                 DeckView target = (DeckView) event.getGestureTarget();
-                Deck targetDeck = target.getDeck();                
-                if (gameplay.move(sourceDeck, targetDeck)) {                    
+                Deck targetDeck = target.getDeck();
+                if (gameplay.move(sourceDeck, targetDeck)) {
                     refreshImage();
                     event.setDropCompleted(true);
                 }
@@ -81,9 +83,9 @@ public class DeckView extends ImageView {
             @Override
             public void handle(DragEvent event) {
                 refreshImage();
-                score.setText("" + gameplay.getScore());
+                gui.getScore().setText("" + gameplay.getScore());
                 if (gameplay.isComplete()) {
-                    // tässä johonkin lopetusrutiiniin
+                    // gui.winning();
                 }
                 event.consume();
             }

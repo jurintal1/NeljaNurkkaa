@@ -29,6 +29,9 @@ public class GUI extends Application {
     private HighScoreList highScoreList;
     private Tableau table;
 
+    private boolean ended;
+    private Label score;
+
     @Override
     public void start(Stage window) {
         newGame(window);
@@ -45,6 +48,7 @@ public class GUI extends Application {
         this.gameplay = new Gameplay(table);
         this.list = new HighScoreList();
         this.highScoreList = new HighScoreList();
+        this.ended = false;        
 
         stage.setTitle("Les Quatre Coins");
         this.mainView = createMainView();
@@ -65,16 +69,19 @@ public class GUI extends Application {
         rightBox.setSpacing(30);
         rightBox.setBackground(new Background(new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        Label score = new Label("" + gameplay.getScore());
+        this.score = new Label("" + gameplay.getScore());
         score.setTextFill(Color.WHITESMOKE);
         score.setFont(new Font("Arial", 60));
 
         Button restart = new Button("Aloita alusta");
         restart.setOnAction(e -> {
+            this.ended = true;
             if (list.checkList(gameplay.getScore())) {
-                stage.setScene(createFormView());
+                addToHighScoreList();
+            } else {
+                newGame(this.stage);
             }
-            newGame(this.stage);
+
         });
 
         Button highscores = new Button("High Score -lista");
@@ -94,30 +101,30 @@ public class GUI extends Application {
         grid.setVgap(3);
         grid.setPadding(new Insets(10, 100, 10, 100));
 
-        grid.add(new DeckView(table.getUpLeftCorner(), gameplay, score), 0, 0);
-        grid.add(new DeckView(table.getDownLeftCorner(), gameplay, score), 0, 3);
-        grid.add(new DeckView(table.getLeft1(), gameplay, score), 1, 0);
-        grid.add(new DeckView(table.getLeft2(), gameplay, score), 1, 1);
-        grid.add(new DeckView(table.getLeft3(), gameplay, score), 1, 2);
-        grid.add(new DeckView(table.getLeft4(), gameplay, score), 1, 3);
+        grid.add(new DeckView(table.getUpLeftCorner(), gameplay, this), 0, 0);
+        grid.add(new DeckView(table.getDownLeftCorner(), gameplay, this), 0, 3);
+        grid.add(new DeckView(table.getLeft1(), gameplay, this), 1, 0);
+        grid.add(new DeckView(table.getLeft2(), gameplay, this), 1, 1);
+        grid.add(new DeckView(table.getLeft3(), gameplay, this), 1, 2);
+        grid.add(new DeckView(table.getLeft4(), gameplay, this), 1, 3);
 
-        grid.add(new DeckView(table.getClubsUp(), gameplay, score), 2, 0);
-        grid.add(new DeckView(table.getDiamondsUp(), gameplay, score), 2, 1);
-        grid.add(new DeckView(table.getHeartsUp(), gameplay, score), 2, 2);
-        grid.add(new DeckView(table.getSpadesUp(), gameplay, score), 2, 3);
+        grid.add(new DeckView(table.getClubsUp(), gameplay, this), 2, 0);
+        grid.add(new DeckView(table.getDiamondsUp(), gameplay, this), 2, 1);
+        grid.add(new DeckView(table.getHeartsUp(), gameplay, this), 2, 2);
+        grid.add(new DeckView(table.getSpadesUp(), gameplay, this), 2, 3);
 
-        grid.add(new DeckView(table.getClubsDown(), gameplay, score), 3, 0);
-        grid.add(new DeckView(table.getDiamondsDown(), gameplay, score), 3, 1);
-        grid.add(new DeckView(table.getHeartsDown(), gameplay, score), 3, 2);
-        grid.add(new DeckView(table.getSpadesDown(), gameplay, score), 3, 3);
+        grid.add(new DeckView(table.getClubsDown(), gameplay, this), 3, 0);
+        grid.add(new DeckView(table.getDiamondsDown(), gameplay, this), 3, 1);
+        grid.add(new DeckView(table.getHeartsDown(), gameplay, this), 3, 2);
+        grid.add(new DeckView(table.getSpadesDown(), gameplay, this), 3, 3);
 
-        grid.add(new DeckView(table.getRight1(), gameplay, score), 4, 0);
-        grid.add(new DeckView(table.getRight2(), gameplay, score), 4, 1);
-        grid.add(new DeckView(table.getRight3(), gameplay, score), 4, 2);
-        grid.add(new DeckView(table.getRight4(), gameplay, score), 4, 3);
+        grid.add(new DeckView(table.getRight1(), gameplay, this), 4, 0);
+        grid.add(new DeckView(table.getRight2(), gameplay, this), 4, 1);
+        grid.add(new DeckView(table.getRight3(), gameplay, this), 4, 2);
+        grid.add(new DeckView(table.getRight4(), gameplay, this), 4, 3);
 
-        grid.add(new DeckView(table.getUpRightCorner(), gameplay, score), 5, 0);
-        grid.add(new DeckView(table.getDownRightCorner(), gameplay, score), 5, 3);
+        grid.add(new DeckView(table.getUpRightCorner(), gameplay, this), 5, 0);
+        grid.add(new DeckView(table.getDownRightCorner(), gameplay, this), 5, 3);
 
         return new Scene(bPane, 1200, 680, Color.FORESTGREEN);
     }
@@ -148,16 +155,18 @@ public class GUI extends Application {
         grid.add(name, 1, 1);
 
         Button button = new Button("Kyllä!");
+        button.setOnAction(e -> {
+            this.highScoreList.add(new HighScore(name.getText(), this.gameplay.getScore()));
+            System.out.println(this.highScoreList.getListFromFile());
+            this.stage.setScene(createListView());
+        });
+
         HBox box = new HBox(10);
         box.setAlignment(Pos.BOTTOM_RIGHT);
         box.getChildren().add(button);
         grid.add(box, 1, 4);
 
-        button.setOnAction(e -> {
-
-        });
-
-        return new Scene(grid);
+        return new Scene(grid, 1200, 680);
 
     }
 
@@ -166,30 +175,85 @@ public class GUI extends Application {
      *
      * @return the Scene with a view of high score list
      */
-    public Scene createListView() {        
+    public Scene createListView() {
         ArrayList<HighScore> list = highScoreList.getListFromFile();
-        String listString = " ";
+        String listString = "";
         if (!list.isEmpty()) {
             for (int i = 0; i < list.size(); i++) {
                 listString += list.get(i).toString() + "\n";
             }
         }
-        Text text = new Text(listString);        
-        text.setFont(new Font("Arial", 40));                
-        
+        Text text = new Text(listString);
+        text.setFill(Color.WHITESMOKE);
+        text.setFont(new Font("Arial", 40));
+
         Button back = new Button("Takaisin peliin");
         back.setOnAction(e -> {
-            this.stage.setScene(this.mainView);
+            if (this.ended) {
+                newGame(this.stage);
+            }
+            stage.setScene(mainView);
 
         });
-        
+
         VBox vb = new VBox(text, back);
         vb.setPadding(new Insets(25, 25, 25, 25));
         vb.setAlignment(Pos.CENTER);
         vb.setBackground(
-                new Background
-                (new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                new Background(new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         return new Scene(vb, 1200, 680);
+    }
+
+    /**
+     * Opens the form where the player can give her name for the high score
+     * list.
+     */
+    public void addToHighScoreList() {
+        this.stage.setScene(createFormView());
+
+    }
+
+    public Label getScore() {
+        return score;
+    }
+
+    public void setScore(Label score) {
+        this.score = score;
+    }
+
+    public void winning() {
+        this.ended = true;
+
+        GridPane grid = new GridPane();
+        grid.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+
+        Text text
+                = new Text("No niin, se oli siinä. Ihan kiva.");
+        text.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 20));
+        text.setFill(Color.WHITESMOKE);
+        text.setWrappingWidth(200);
+        grid.add(text, 0, 0, 2, 1);
+
+        Button button = new Button("Eteenpäin!");
+        button.setOnAction(e -> {
+            if (list.checkList(gameplay.getScore())) {
+                addToHighScoreList();
+            } else {
+                newGame(this.stage);
+            }
+        });
+
+        HBox box = new HBox(10);
+        box.setAlignment(Pos.BOTTOM_RIGHT);
+        box.getChildren().add(button);
+        grid.add(box, 1, 4);
+
+        this.stage.setScene(new Scene(grid, 1200, 680, Color.FORESTGREEN));
+
     }
 
     /**

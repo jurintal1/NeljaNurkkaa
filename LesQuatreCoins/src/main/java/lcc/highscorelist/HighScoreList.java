@@ -1,15 +1,12 @@
 package lcc.highscorelist;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class HighScoreList {
 
@@ -29,7 +26,8 @@ public class HighScoreList {
      */
     public boolean checkList(int score) {
         ArrayList<HighScore> list = getListFromFile();
-        if (score > list.get(list.size() - 1).getScore()) {
+        int listLowest = list.get(list.size() - 1).getScore();
+        if (score > listLowest) {
             return true;
         }
         return false;
@@ -42,15 +40,11 @@ public class HighScoreList {
      */
     public void add(HighScore hs) {
         ArrayList<HighScore> list = getListFromFile();
-        System.out.println(list);
         list.add(hs);
-
-        System.out.println(list);
         Collections.sort(list);
         if (list.size() > 10) {
             list.remove(10);
         }
-        System.out.println(list);
         saveFile(list);
     }
 
@@ -92,7 +86,7 @@ public class HighScoreList {
             ois.close();
 
         } catch (IOException | ClassNotFoundException ex) {
-            System.out.println("ei onnistu");
+
         }
         return list;
 
