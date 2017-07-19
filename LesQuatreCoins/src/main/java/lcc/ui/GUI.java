@@ -46,9 +46,8 @@ public class GUI extends Application {
         this.stage = stage;
         this.table = new Tableau();
         this.gameplay = new Gameplay(table);
-        this.list = new HighScoreList();
         this.highScoreList = new HighScoreList();
-        this.ended = false;        
+        this.ended = false;
 
         stage.setTitle("Les Quatre Coins");
         this.mainView = createMainView();
@@ -76,7 +75,7 @@ public class GUI extends Application {
         Button restart = new Button("Aloita alusta");
         restart.setOnAction(e -> {
             this.ended = true;
-            if (list.checkList(gameplay.getScore())) {
+            if (this.highScoreList.checkList(gameplay.getScore())) {
                 addToHighScoreList();
             } else {
                 newGame(this.stage);
@@ -240,7 +239,7 @@ public class GUI extends Application {
 
         Button button = new Button("Eteenpäin!");
         button.setOnAction(e -> {
-            if (list.checkList(gameplay.getScore())) {
+            if (this.highScoreList.checkList(gameplay.getScore())) {
                 addToHighScoreList();
             } else {
                 newGame(this.stage);

@@ -1,7 +1,15 @@
 package lcc.logic;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 
 /**
  * A class for initializing and accessing Deck objects. A deck of cards is
@@ -75,9 +83,23 @@ abstract public class Deck {
      */
     public Image deckImage() {
         if (this.size() == 0) {
-            return new Image("File:src/main/resources/graphics/empty_deck.png");
+            return getImageFromStream("graphics/empty_deck.png");
         }
-        return new Image(this.topCard().getImageSource());
+        return getImageFromStream(this.topCard().getImageSource());
+    }
+
+    public Image getImageFromStream(String source) {
+        InputStream is = getClass().getClassLoader().
+                getResourceAsStream(source);
+        BufferedImage bf;
+        try {
+            bf = ImageIO.read(is);
+            Image image = SwingFXUtils.toFXImage(bf, null);
+            return image;
+        } catch (IOException ex) {
+            Logger.getLogger(Deck.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

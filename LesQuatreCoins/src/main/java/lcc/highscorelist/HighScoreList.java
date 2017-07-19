@@ -1,5 +1,6 @@
 package lcc.highscorelist;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,12 +11,29 @@ import java.util.Collections;
 
 public class HighScoreList {
 
-    private final String highScorefile = "src/main/resources/highscorelist";
+    private final File highScoreFile;
 
     /**
      * Creates a new list.
      */
     public HighScoreList() {
+        this.highScoreFile
+                = new File(System.getProperty("user.home")
+                        + File.separator
+                        + "list");        
+        createHighScoreFile();
+
+    }
+
+    private void createHighScoreFile() {
+        if (!highScoreFile.exists()) {
+            try {
+                this.highScoreFile.createNewFile();
+            } catch (IOException ex) {
+            }
+            ArrayList<HighScore> list = new ArrayList();
+            saveFile(list);
+        }
     }
 
     /**
@@ -26,11 +44,11 @@ public class HighScoreList {
      */
     public boolean checkList(int score) {
         ArrayList<HighScore> list = getListFromFile();
-        int listLowest = list.get(list.size() - 1).getScore();
-        if (score > listLowest) {
+        if (list.isEmpty()) {
             return true;
         }
-        return false;
+        int listLowest = list.get(list.size() - 1).getScore();
+        return score > listLowest;
     }
 
     /**
@@ -57,13 +75,15 @@ public class HighScoreList {
         FileOutputStream fos;
         ObjectOutputStream oos;
         try {
-            fos = new FileOutputStream(this.highScorefile);
+
+            fos = new FileOutputStream(this.highScoreFile);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(list);
             oos.close();
             fos.close();
 
         } catch (IOException ex) {
+
         }
     }
 
@@ -79,7 +99,7 @@ public class HighScoreList {
         ArrayList<HighScore> list = new ArrayList();
 
         try {
-            fis = new FileInputStream(highScorefile);
+            fis = new FileInputStream(highScoreFile);
             ois = new ObjectInputStream(fis);
             list = (ArrayList<HighScore>) ois.readObject();
             fis.close();

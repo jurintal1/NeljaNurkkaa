@@ -30,7 +30,7 @@ public class Card {
         }
         this.suit = suit;
         this.value = value;
-        this.imagesource = "File:src/main/resources/graphics/" + this.valueAsString() + this.suit + ".png";
+        this.imagesource = "graphics/" + this.valueAsString() + this.suit + ".png";
 
     }
 
